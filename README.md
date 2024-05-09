@@ -2,6 +2,10 @@
 
 Welcome to the repository for Assignment 2 of the Bioinformatics course at BCB420. This project involves analyzing normalized gene expression data from a previous assignment, ranking genes by differential expression, and conducting thresholded over-representation analysis (ORA) to identify key biological themes.
 
+[Link to original assignment guidelines](https://github.com/bcb420-2020/General_Course_Info/wiki/Assignment%232)
+
+[Link to original jounral entry](https://github.com/bcb420-2022/Sabbir_Hossain/wiki/Journal-Entry-Assignment-%232:--Differential-Gene-expression-and-Preliminary-ORA)
+
 ## Objective
 
 The main objective of this assignment is to build on the normalized expression data from Assignment 1 by performing differential gene expression analysis and ORA. This standalone project emphasizes extracting meaningful biological insights from the data and presenting them comprehensively.
