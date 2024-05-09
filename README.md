@@ -6,6 +6,8 @@ Welcome to the repository for Assignment 2 of the Bioinformatics course at BCB42
 
 [Link to original jounral entry](https://github.com/bcb420-2022/Sabbir_Hossain/wiki/Journal-Entry-Assignment-%232:--Differential-Gene-expression-and-Preliminary-ORA)
 
+[Link to rendered HTML document for this project](https://html-preview.github.io/?url=https://github.com/itsSabbir/DifferentialGeneexpressionAndPreliminaryORA/blob/main/A2_Sabbir_Hossain.html)
+
 ## Objective
 
 The main objective of this assignment is to build on the normalized expression data from Assignment 1 by performing differential gene expression analysis and ORA. This standalone project emphasizes extracting meaningful biological insights from the data and presenting them comprehensively.
