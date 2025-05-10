@@ -17,38 +17,54 @@ output:
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-suppressWarnings(
-{if (!requireNamespace("BiocManager", quietly = TRUE))
+suppressWarnings({
+  if (!requireNamespace("BiocManager", quietly = TRUE)) {
     install.packages("BiocManager")
-if (!requireNamespace("GEOmetadb", quietly = TRUE))
+  }
+  if (!requireNamespace("GEOmetadb", quietly = TRUE)) {
     BiocManager::install("GEOmetadb")
-if (!requireNamespace("limma", quietly = TRUE))
+  }
+  if (!requireNamespace("limma", quietly = TRUE)) {
     BiocManager::install("limma")
-if (!requireNamespace("AnnotationDbi", quietly = TRUE))
+  }
+  if (!requireNamespace("AnnotationDbi", quietly = TRUE)) {
     BiocManager::install("AnnotationDbi")
-if (!requireNamespace("org.Hs.eg.db", quietly = TRUE))
+  }
+  if (!requireNamespace("org.Hs.eg.db", quietly = TRUE)) {
     BiocManager::install("org.Hs.eg.db")
-if (!requireNamespace("edgeR", quietly = TRUE))
+  }
+  if (!requireNamespace("edgeR", quietly = TRUE)) {
     BiocManager::install("edgeR")
-if (!requireNamespace("readxl", quietly = TRUE))
+  }
+  if (!requireNamespace("readxl", quietly = TRUE)) {
     BiocManager::install("readxl")
-if (!requireNamespace("RColorBrewer", quietly = TRUE))
+  }
+  if (!requireNamespace("RColorBrewer", quietly = TRUE)) {
     install.packages("RColorBrewer")
-if (!requireNamespace("tidyverse", quietly = TRUE))
+  }
+  if (!requireNamespace("tidyverse", quietly = TRUE)) {
     install.packages("tidyverse")
-if (!requireNamespace("ggplot2", quietly = TRUE))
+  }
+  if (!requireNamespace("ggplot2", quietly = TRUE)) {
     install.packages("ggplot2")
-if (!requireNamespace("dplyr", quietly = TRUE))
+  }
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
     install.packages("dplyr")
-if (!requireNamespace("vegan", quietly = TRUE))
+  }
+  if (!requireNamespace("vegan", quietly = TRUE)) {
     install.packages("vegan")
-if (!requireNamespace("gprofiler2", quietly = TRUE))
+  }
+  if (!requireNamespace("gprofiler2", quietly = TRUE)) {
     install.packages("gprofiler2")
-if (!requireNamespace("ComplexHeatmap", quietly = TRUE))
+  }
+  if (!requireNamespace("ComplexHeatmap", quietly = TRUE)) {
     install.packages("ComplexHeatmap")
-if (!requireNamespace("ggrepel", quietly = TRUE))
-    install.packages("ggrepel")})
- 
+  }
+  if (!requireNamespace("ggrepel", quietly = TRUE)) {
+    install.packages("ggrepel")
+  }
+})
+
 suppressPackageStartupMessages({
   library(tidyverse)
   library(edgeR)
@@ -102,58 +118,60 @@ Set up all the data we used from Assignment 1. Reasoning for doing it this way..
 
 ```{r, include=FALSE}
 if (!file.exists("GSE193417.rds")) {
-  GSE193417 <- getGEO("GSE193417", GSEMatrix =TRUE, getGPL= FALSE)
+  GSE193417 <- getGEO("GSE193417", GSEMatrix = TRUE, getGPL = FALSE)
   if (length(GSE193417) > 1) idx <- grep("GPL16791", attr(GSE193417, "names")) else idx <- 1
   GSE193417s <- GSE193417[[idx]]
   saveRDS(GSE193417, "GSE193417.rds")
 } else {
-  GSE193417 <- readRDS("GSE193417.rds") 
+  GSE193417 <- readRDS("GSE193417.rds")
 }
 
-if (!dir.exists('GSE193417')){
-  gsefiles = getGEOSuppFiles('GSE193417')
+if (!dir.exists("GSE193417")) {
+  gsefiles <- getGEOSuppFiles("GSE193417")
   (fnames <- rownames(gsefiles))
 } else {
-  gsefiles = getGEOSuppFiles('GSE193417', fetch_files = FALSE)
-  fnames <- paste(getwd(), 'GSE193417', gsefiles$fname, sep = "/")
+  gsefiles <- getGEOSuppFiles("GSE193417", fetch_files = FALSE)
+  fnames <- paste(getwd(), "GSE193417", gsefiles$fname, sep = "/")
 }
 
 gse <- suppressMessages(getGEO("GSE193417", GSEMatrix = FALSE))
-mddInMe = read.csv(fnames[1],header=TRUE, check.names = FALSE)
+mddInMe <- read.csv(fnames[1], header = TRUE, check.names = FALSE)
 colnames(mddInMe)[1] <- "EntrezID"
 invisible(na.omit(mddInMe))
 filtMddInMe <- (mddInMe[rowSums(mddInMe > 1) >= 6, ])
 saveRDS(filtMddInMe, "GSE193417_filtered_CPM.rds")
 
-if (!file.exists("GSE193417_normalized_datastruct.rds")){
-  if(!exists('ensembl')){
-    ensembl <- useMart(biomart = "ensembl", dataset="hsapiens_gene_ensembl")
+if (!file.exists("GSE193417_normalized_datastruct.rds")) {
+  if (!exists("ensembl")) {
+    ensembl <- useMart(biomart = "ensembl", dataset = "hsapiens_gene_ensembl")
   }
-  if(!exists('geneIDs')){
-    geneIDs <- getBM(attributes = c('ensembl_gene_id', 'hgnc_symbol'),
-                                   filters = 'ensembl_gene_id',
-                                   values = filtMddInMe$EntrezID,
-                                   mart = ensembl)
+  if (!exists("geneIDs")) {
+    geneIDs <- getBM(
+      attributes = c("ensembl_gene_id", "hgnc_symbol"),
+      filters = "ensembl_gene_id",
+      values = filtMddInMe$EntrezID,
+      mart = ensembl
+    )
   }
-  
+
   # unmappedsegs genes
-  unmappedsegsNums = nrow(filtMddInMe) - nrow(geneIDs)
-  #The unmapped segments and portions will be removed. 
+  unmappedsegsNums <- nrow(filtMddInMe) - nrow(geneIDs)
+  # The unmapped segments and portions will be removed.
   unmappedsegs <- dplyr::anti_join(filtMddInMe[1], geneIDs[1], by = c("EntrezID" = "ensembl_gene_id"))
-  #Remove some repitions
+  # Remove some repitions
   FinalGeneFilter <- dplyr::inner_join(geneIDs, filtMddInMe, by = c("ensembl_gene_id" = "EntrezID"))
   tempRepeats <- data.frame(table(geneIDs$ensembl_gene_id))
-  #And then again.
-  FinalGeneFilter <- FinalGeneFilter[!(FinalGeneFilter$hgnc_symbol=="STRA6LP" | FinalGeneFilter$hgnc_symbol=="LINC00856"),]
-  #And again. The aim is to remove any of the hgnc symbols that mapped to more than one Ensemble IDs. Essentially the Ensemble IDs should be treated as some sort of function. For every 1x, there is exactly 1y to pair with it. Lock and     key so to speak.
-  FinalGeneFilter <- FinalGeneFilter[!(FinalGeneFilter$hgnc_symbol=="POLR2J3" | FinalGeneFilter$hgnc_symbol=="TBCE"),]
+  # And then again.
+  FinalGeneFilter <- FinalGeneFilter[!(FinalGeneFilter$hgnc_symbol == "STRA6LP" | FinalGeneFilter$hgnc_symbol == "LINC00856"), ]
+  # And again. The aim is to remove any of the hgnc symbols that mapped to more than one Ensemble IDs. Essentially the Ensemble IDs should be treated as some sort of function. For every 1x, there is exactly 1y to pair with it. Lock and     key so to speak.
+  FinalGeneFilter <- FinalGeneFilter[!(FinalGeneFilter$hgnc_symbol == "POLR2J3" | FinalGeneFilter$hgnc_symbol == "TBCE"), ]
   goodHGNCboy <- data.frame(table(geneIDs$hgnc_symbol))
-  FinalGeneFilter <- FinalGeneFilter[!(FinalGeneFilter$hgnc_symbol ==""), ]
-  keep = rowSums(FinalGeneFilter[2:13] >1) >= 6
-  FinalGeneFilter <- FinalGeneFilter[keep,]
+  FinalGeneFilter <- FinalGeneFilter[!(FinalGeneFilter$hgnc_symbol == ""), ]
+  keep <- rowSums(FinalGeneFilter[2:13] > 1) >= 6
+  FinalGeneFilter <- FinalGeneFilter[keep, ]
   saveRDS(FinalGeneFilter, "GSE193417_filtered_symbols.rds")
-  
-  #Fixes and properly formats the column names of the dataframe. 
+
+  # Fixes and properly formats the column names of the dataframe.
   testFinalGeneFilter <- FinalGeneFilter
   for (i in 3:length(colnames(FinalGeneFilter))) {
     testnames <- strsplit((colnames(FinalGeneFilter)[i]), ".bam")
@@ -161,15 +179,14 @@ if (!file.exists("GSE193417_normalized_datastruct.rds")){
   }
   saveRDS(testFinalGeneFilter, "GSE193417_finalfiltered_symbols.rds")
 
-  #Normalized counts and values.
+  # Normalized counts and values.
   d <- edgeR::DGEList(testFinalGeneFilter[3:14])
   d <- edgeR::calcNormFactors(d)
   normalized_counts_pmil <- edgeR::cpm(d)
   saveRDS(normalized_counts_pmil, "GSE193417_normalized_CPM.rds")
-  normalized_datastruct <- cbind(testFinalGeneFilter[1:2], normalized_counts_pmil) 
+  normalized_datastruct <- cbind(testFinalGeneFilter[1:2], normalized_counts_pmil)
   saveRDS(normalized_datastruct, "GSE193417_normalized_datastruct.rds")
 } else {
-  
   filtMddInMe <- readRDS("GSE193417_filtered_CPM.rds")
   FinalGeneFilter <- readRDS("GSE193417_filtered_symbols.rds")
   testFinalGeneFilter <- readRDS("GSE193417_finalfiltered_symbols.rds")
@@ -181,13 +198,13 @@ This section is responsible for downloading the dataset, cleaning the imported d
 
 ### Error Check
 ```{R}
-#check to see if the files are actually there. If not delete everything and try again.
+# check to see if the files are actually there. If not delete everything and try again.
 if (!file.exists("GSE193417_normalized_datastruct.rds")) {
-  print("The required files do not exist, one moment while all the data is being configured. 
-        If the notebook stops running, you might need to delete all the 
+  print("The required files do not exist, one moment while all the data is being configured.
+        If the notebook stops running, you might need to delete all the
         associated files with this notebook and run it from the begining.")
 } else {
-print("The required files exist, you may continue to run this R-Notebook")
+  print("The required files exist, you may continue to run this R-Notebook")
 }
 ```
 Just a quick aside and sidenote here, for me the output will always print as "The required files exist, you may continue to run this R-Notebook", because I have all the required RDS configured and downloaded. However, for the first run it will print the error that the files don't exist, in which case you will have to delete everything and start over as the print statement suggests. 
@@ -198,19 +215,19 @@ Just a quick aside and sidenote here, for me the output will always print as "Th
 ### Construction of the Design Matrix
 ```{R}
 samples <- data.frame(
-  lapply(colnames(testFinalGeneFilter), FUN=function(x){
-    unlist(strsplit(x, split = FALSE))[c(2,3)]
-  }
-))
+  lapply(colnames(testFinalGeneFilter), FUN = function(x) {
+    unlist(strsplit(x, split = FALSE))[c(2, 3)]
+  })
+)
 colnames(samples) <- (colnames(testFinalGeneFilter)[3:14])
-#removes the empty column
+# removes the empty column
 samples <- subset(samples, select = -c(13, 14))
 rownames(samples) <- c("sample_expression", "sample_group")
 samples[is.na(samples)] <- 0
-#fill in the sample expression type, if they are sgACC or MDD
-samples[1,] <- c("sgACC_MDD", "sgACC_control", "sgACC_control",	"sgACC_control", "sgACC_MDD",	"sgACC_MDD",	"sgACC_control", "sgACC_control", "sgACC_MDD", "sgACC_control",	"sgACC_MDD",	"sgACC_MDD")
-#fill in the sample_cell type, if they are a control or not. 
-samples[2,] <- c("MDD","control","control","control","MDD","MDD","control","control","MDD","control","MDD","MDD")
+# fill in the sample expression type, if they are sgACC or MDD
+samples[1, ] <- c("sgACC_MDD", "sgACC_control", "sgACC_control", "sgACC_control", "sgACC_MDD", "sgACC_MDD", "sgACC_control", "sgACC_control", "sgACC_MDD", "sgACC_control", "sgACC_MDD", "sgACC_MDD")
+# fill in the sample_cell type, if they are a control or not.
+samples[2, ] <- c("MDD", "control", "control", "control", "MDD", "MDD", "control", "control", "MDD", "control", "MDD", "MDD")
 samplesMat <- as.matrix(samples)
 geneSymID <- testFinalGeneFilter[1:2]
 expDesign <- testFinalGeneFilter
@@ -221,15 +238,15 @@ expGroups <- as.data.frame(rbind(expGroups, samples))
 designedd <- data.frame(lapply(colnames(normalized_counts_pmil), function(x) {
   gsub("\\d", "", unlist(strsplit(x, "_")))
 }))
-rownames(designedd) <- rownames(samples[1,])
-rownames(designedd) <- rownames(samples[2,])
+rownames(designedd) <- rownames(samples[1, ])
+rownames(designedd) <- rownames(samples[2, ])
 colnames(designedd) <- colnames(normalized_counts_pmil)
 expDesign <- testFinalGeneFilter
 expGroups <- as.data.frame(cbind(response = expDesign$header))
 expGroups <- as.data.frame(rbind(expGroups, samples))
-designedd <-expGroups
+designedd <- expGroups
 design2 <- data.frame(t(designedd))
-knitr::kable(design2, type="html")
+knitr::kable(design2, type = "html")
 ```
 Table 1. Shows the design matrix for the samples, stating the sample's expression type and its grouping. The controls are control individuals who do not have Major Depressive Disorder (MDD), while those labelled with MDD have MDD. 
 
@@ -239,7 +256,7 @@ snames <- colnames(testFinalGeneFilter)[3:14]
 d <- testFinalGeneFilter[3:14]
 groupss <- interaction(snames, samplesMat["sample_group", ])
 
-plotMDS(d, col=as.numeric(groupss), main="MDS plot of Norm. RNASeq Samples for GSE193417")
+plotMDS(d, col = as.numeric(groupss), main = "MDS plot of Norm. RNASeq Samples for GSE193417")
 ```
 
 
@@ -248,30 +265,31 @@ plotMDS(d, col=as.numeric(groupss), main="MDS plot of Norm. RNASeq Samples for G
 
 ### Density Curve for Normalized Distribution Values 
 ```{R}
-ctsDenct <- apply(log2(edgeR::cpm(normalized_datastruct[,3:14])), 2, density)
+ctsDenct <- apply(log2(edgeR::cpm(normalized_datastruct[, 3:14])), 2, density)
 dataplot2 <- c(colnames(samples))
 
-xlim <- 0; ylim <- 0
+xlim <- 0
+ylim <- 0
 for (i in 1:length(ctsDenct)) {
-  xlim <- range(c(xlim, ctsDenct[[i]]$x));
+  xlim <- range(c(xlim, ctsDenct[[i]]$x))
   ylim <- range(c(ylim, ctsDenct[[i]]$y))
 }
 cols <- rainbow(length(ctsDenct))
 ltys <- rep(1, length(ctsDenct))
 
 plot(ctsDenct[[1]], xlim = xlim, ylim = ylim, type = "n", ylab = "Smoothing density of log2-CPM", main = "Normalized Distribution Values for GSE193417", cex.lab = 0.85)
-for (i in 1:length(ctsDenct))
+for (i in 1:length(ctsDenct)) {
   lines(ctsDenct[[i]], col = cols[i], lty = ltys[i])
+}
 
-legend("topright", legend = dataplot2, col=cols, lty=ltys, cex=0.75, border="blue", text.col = "green4", merge = TRUE, bg = "gray90")
-#Remember to add in the figure name, number and description. 
+legend("topright", legend = dataplot2, col = cols, lty = ltys, cex = 0.75, border = "blue", text.col = "green4", merge = TRUE, bg = "gray90")
+# Remember to add in the figure name, number and description.
 ```
 \newline Figure 2. A normalized distribution curve The density curves are another way to analyse our data before and after the normalisation process; because they are proportional to the size of the data set, they work particularly well with larger data sets. The more data we can add to this curve, the better we'll be able to predict and model it. While outlines and data that do not match the average are more than likely to affect the extreme ends of the curve, we can still deduce that those who suffer from MDD will find someone with whom they can comfortably align themselves. The more data we can add to this curve, the better we'll be able to predict and model it. The higher curves for the youngest and oldest of the group in this data set and these samples specifically. While there are a few points where the difference in the variable values mapped against the curve falls short of the non-normalized graph, the normalised graph lacks extra values, repetitions are the most likely culprit because they count for twice as much as they should.
 
 ### Normalized Data Strucutre
 ```{r}
-knitr::kable(t(normalized_datastruct[1:5,]), type="html",)
-
+knitr::kable(t(normalized_datastruct[1:5, ]), type = "html", )
 ```
 Table 2. A table that shows the completed normalized data structure for this dataset, with matching ensemble gene IDs, and HGNC symbols for each of the samples. This data structure was one of the intended final products of Assignment 1. The object is called normalized_datastruct. 
 
@@ -281,17 +299,17 @@ Table 2. A table that shows the completed normalized data structure for this dat
 design_model <- model.matrix(~ design2$sample_expression)
 minimal_set <- ExpressionSet(normalized_counts_pmil)
 fit <- limma::lmFit(minimal_set, design_model)
-fit2 <- limma::eBayes(fit, trend=TRUE)
-topfit <- limma::topTable(fit2, coef=ncol(design_model), adjust.method="BH", number=nrow(normalized_counts_pmil))
+fit2 <- limma::eBayes(fit, trend = TRUE)
+topfit <- limma::topTable(fit2, coef = ncol(design_model), adjust.method = "BH", number = nrow(normalized_counts_pmil))
 # Add the gene symbols
 output_hits <- merge(
   data.frame(gene = geneSymID, row.names = rownames(normalized_counts_pmil)),
   topfit,
-  by=0,
-  all=TRUE
+  by = 0,
+  all = TRUE
 )
 # Sort by unadjusted p-value
-output_hits <- output_hits[order(output_hits$P.Value, decreasing = FALSE),]
+output_hits <- output_hits[order(output_hits$P.Value, decreasing = FALSE), ]
 output_hits
 ```
 Table 3. A table that shows the first 10 genes with the lowest P-values of the dataset. This table is ordered, by the P.value attribute and starts with the lowest P.value and goes to the largest P.value.
@@ -302,7 +320,7 @@ Table 3. A table that shows the first 10 genes with the lowest P-values of the d
 vol_plot <- output_hits
 
 vol_plot$diffexpressed <- "Not Significant"
-# if logFC > 1 and P.Value < 0.05, set as "Up Regulated" 
+# if logFC > 1 and P.Value < 0.05, set as "Up Regulated"
 vol_plot$diffexpressed[vol_plot$logFC > 1 & vol_plot$P.Value < 0.05] <- "Up Regulated"
 # if logFC < -1 and P.Value < 0.05, set as "Down Regulated"
 vol_plot$diffexpressed[vol_plot$logFC < 1 & vol_plot$P.Value < 0.05] <- "Down Regulated"
@@ -311,38 +329,40 @@ vol_plot$diffexpressed[vol_plot$logFC < 1 & vol_plot$P.Value < 0.05] <- "Down Re
 vol_plot$delabel <- NA
 vol_plot$delabel[vol_plot$diffexpressed != "Not Significant"] <- vol_plot$gene.hgnc_symbol[vol_plot$diffexpressed != "Not Significant"]
 
-ggplot(data=vol_plot, aes(x=logFC, y=-log10(P.Value), col=diffexpressed, label=delabel)) +
-        geom_point() + 
-        theme_minimal() +
-        geom_text_repel() +
-        scale_color_manual(values=c("blue", "black", "purple")) +
-        geom_vline(xintercept=c(-1, 1), col="red") +
-        geom_hline(yintercept=-log10(0.05), col="red") +
-        labs(title="All differentially expressed genes with a p-value < 0.05 for GSE193417")
+ggplot(data = vol_plot, aes(x = logFC, y = -log10(P.Value), col = diffexpressed, label = delabel)) +
+  geom_point() +
+  theme_minimal() +
+  geom_text_repel() +
+  scale_color_manual(values = c("blue", "black", "purple")) +
+  geom_vline(xintercept = c(-1, 1), col = "red") +
+  geom_hline(yintercept = -log10(0.05), col = "red") +
+  labs(title = "All differentially expressed genes with a p-value < 0.05 for GSE193417")
 ```
 \newline Figure 3. A volcano plot that shows the single upregulated gene, [MT-CO1](https://www.uniprot.org/uniprot/P00395) and the 6 downregulated genes [GAS6](https://www.uniprot.org/uniprot/Q14393), [CCDC93](https://www.uniprot.org/uniprot/Q567U6), [METRN](https://www.uniprot.org/uniprot/Q9UJH8), [TAF1](https://www.uniprot.org/uniprot/P21675), [GAK](https://www.uniprot.org/uniprot/O14976), [WIF1](https://www.uniprot.org/uniprot/Q9Y5W5).  
 
 ### MA plot
 ```{R}
-limma::plotMA(minimal_set, status=output_hits$P.Value < 0.05, main="Differentially expressed genes with a p-value < 0.05 for GSE193417")
+limma::plotMA(minimal_set, status = output_hits$P.Value < 0.05, main = "Differentially expressed genes with a p-value < 0.05 for GSE193417")
 ```
 \newline Figure 4. Matches up with the volc plot, they are just graphical translations of each other. The points, and spread all match up. 
 
 ### Heatmap
 ```{r}
-#Get the rownames of each of the genes that satisfy the threshold. 
+# Get the rownames of each of the genes that satisfy the threshold.
 topHitHM <- output_hits$Row.names[output_hits$P.Value < 0.05]
-#Get the sections of the data that are also in the specified threshold. 
-heatmap_matrix_tophits <- t(scale(t(normalized_counts_pmil[which(rownames(normalized_counts_pmil) %in% topHitHM),])))
+# Get the sections of the data that are also in the specified threshold.
+heatmap_matrix_tophits <- t(scale(t(normalized_counts_pmil[which(rownames(normalized_counts_pmil) %in% topHitHM), ])))
 #
 heatmap_col <- circlize::colorRamp2(c(min(heatmap_matrix_tophits), 0, max(heatmap_matrix_tophits)), c("blue", "white", "red"))
 
-heatmap <- ComplexHeatmap::Heatmap(as.matrix(heatmap_matrix_tophits), name = "gene expr. value", 
+heatmap <- ComplexHeatmap::Heatmap(as.matrix(heatmap_matrix_tophits),
+  name = "gene expr. value",
   cluster_rows = TRUE, show_row_dend = TRUE,
-  cluster_columns = TRUE,show_column_dend = TRUE,
-  col=heatmap_col,show_column_names = TRUE,
-  show_row_names = FALSE,show_heatmap_legend = TRUE,
-  column_title = "Heatmap of diff. expressed genes with a p-value < 0.05 for GSE193417")
+  cluster_columns = TRUE, show_column_dend = TRUE,
+  col = heatmap_col, show_column_names = TRUE,
+  show_row_names = FALSE, show_heatmap_legend = TRUE,
+  column_title = "Heatmap of diff. expressed genes with a p-value < 0.05 for GSE193417"
+)
 heatmap
 ```
 
@@ -375,10 +395,10 @@ all_up_ens <- output_hits$gene.ensembl_gene_id[output_hits$P.Value <= 0.05 & out
 all_up_hgnc <- output_hits$gene.hgnc_symbol[output_hits$P.Value <= 0.05 & output_hits$logFC >= 0]
 all_down_ensg <- output_hits$gene.ensembl_gene_id[output_hits$P.Value <= 0.05 & output_hits$logFC <= 0]
 all_down_hgnc <- output_hits$gene.hgnc_symbol[output_hits$P.Value <= 0.05 & output_hits$logFC <= 0]
-write.table(all_up_ens, file = "all_up_ens.txt", sep="\n", row.names = FALSE,col.names = FALSE,quote = FALSE)
-write.table(all_up_hgnc, file = "all_up_hgnc.txt", sep="\n", row.names = FALSE,col.names = FALSE,quote = FALSE)
-write.table(all_down_ensg, file = "all_down_ensg.txt", sep="\n", row.names = FALSE,col.names = FALSE,quote = FALSE)
-write.table(all_down_hgnc, file = "all_down_hgnc.txt", sep="\n", row.names = FALSE,col.names = FALSE,quote = FALSE)
+write.table(all_up_ens, file = "all_up_ens.txt", sep = "\n", row.names = FALSE, col.names = FALSE, quote = FALSE)
+write.table(all_up_hgnc, file = "all_up_hgnc.txt", sep = "\n", row.names = FALSE, col.names = FALSE, quote = FALSE)
+write.table(all_down_ensg, file = "all_down_ensg.txt", sep = "\n", row.names = FALSE, col.names = FALSE, quote = FALSE)
+write.table(all_down_hgnc, file = "all_down_hgnc.txt", sep = "\n", row.names = FALSE, col.names = FALSE, quote = FALSE)
 all_up <- append(all_up_ens, all_up_hgnc)
 all_down <- append(all_down_ensg, all_down_hgnc)
 allvalues <- append(all_up_hgnc, all_down_hgnc)
@@ -388,7 +408,7 @@ allvaluesnamed <- append(all_up, all_down)
 
 ### g:profiler for ORA differentually expressed genes:
 ```{r, fig.cap="Figure 6A: Manhattan Plot of ORA results for all differentially expressed genes"}
-gostrestp1 <- gost(allvaluesnamed, sources=c("GO:BP", "GO:MF", "GO:CC", "KEGG", "HPA", "HP", "REAC"))
+gostrestp1 <- gost(allvaluesnamed, sources = c("GO:BP", "GO:MF", "GO:CC", "KEGG", "HPA", "HP", "REAC"))
 gostplot(gostrestp1, capped = FALSE, interactive = TRUE)
 ```
 
@@ -401,7 +421,7 @@ Here is the link to [gprofiler]((https://biit.cs.ut.ee/gprofiler/gost?organism=h
 
 ### g:profiler for ORA differentually up regulated expressed genes:
 ```{r, message=FALSE, warning=FALSE, fig.cap="Figure 6B: Manhattan Plot of ORA results for all up-regulated differentially expressed genes"}
-gostrestp1Up <- gost(all_up, sources=c("GO:BP", "GO:MF", "GO:CC", "KEGG", "HPA", "HP", "REAC"))
+gostrestp1Up <- gost(all_up, sources = c("GO:BP", "GO:MF", "GO:CC", "KEGG", "HPA", "HP", "REAC"))
 gostplot(gostrestp1Up, capped = FALSE, interactive = TRUE)
 ```
 
@@ -410,7 +430,7 @@ gostplot(gostrestp1Up, capped = FALSE, interactive = TRUE)
 
 ### g:profiler for ORA differentually down regulated expressed genes:
 ```{r, message=FALSE, warning=FALSE, fig.cap="Figure 6A: Manhattan Plot of ORA results for all down-regulated differentially expressed genes"}
-gostrestp1Down <- gost(all_down, sources=c("GO:BP", "GO:MF", "GO:CC", "KEGG", "HPA", "HP", "REAC"))
+gostrestp1Down <- gost(all_down, sources = c("GO:BP", "GO:MF", "GO:CC", "KEGG", "HPA", "HP", "REAC"))
 gostplot(gostrestp1Down, capped = FALSE, interactive = TRUE)
 ```
 \newline Figure 6C is a Manhattan Plot what shows the hits and genes from the different annotation databases. This includes only downregulated genes for this dataset. Here we can see a large number of the hits from HPA, GO:BP, GO:CC. GO:MF. This also has a similar database spread, although the number of hits is not the same, the goprofiler website had different options, we are only using the genes of interest. They are using the entire negative differentially expressed list. The query can be found [here]((https://biit.cs.ut.ee/gprofiler/gost?organism=hsapiens&query=GAS6%0ACCDC93%0AMETRN%0ATAF1%0AWIF1%0AGAK%0APLEKHO1%0ASNRPB%0AMAPK4%0APACSIN2%0AMYO9B%0ACACNB4%0AZNF512B%0AMRPS2%0AADAM20%0AEBF4%0APOLR2M%0AZFHX2%0ARASA4B%0AMIB2%0AEVA1C%0ASNPH%0ATCF20%0APIEZO1%0ANUDT13%0AANKRD29%0ANPAS2%0ADNAAF5%0ASEC16A%0AFARP1%0AATF4%0APCNT%0AKMT2A%0AFBXO21%0AORAI2%0ACHAF1A%0AMEF2D%0AEID3%0AADGRG1%0ANOL4%0AARF1%0APROZ%0APHRF1%0ARXRA%0ACAPN12%0AATG4B%0ARCC2%0AAGO2%0ARIMKLB%0ACAMSAP1%0AHYAL1%0ACDK11B%0AFAM219A%0ACYTH2%0AFNDC3A%0ACENATAC%0AMTSS2%0ARBBP7%0ACDC25B%0AANKRD39%0AMAPRE3%0ANCLN%0AEHBP1L1%0ARAB11FIP4%0AMRPL45%0ARMND5A%0AALYREF%0AMID1IP1%0ASRP14%0APNPLA7%0AGID8%0ABCL11B%0ARNF187%0AKCNN2%0AAKT2%0ATMEM121%0AMCF2L2%0AMAMDC4%0ASMIM32%0AFGF22%0ASPATA13%0ASLC22A23%0ATRRAP%0ARBM28%0ASTMN3%0ABMS1%0ABICDL1%0AHIVEP2%0APLK5%0ATGFBRAP1%0ADAZAP1%0ACAMKK1%0APLIN5%0ATRAPPC9%0AUTP20%0AITPRIPL2%0ADIP2C%0ACCDC134%0ASELENOO%0AMMAA%0ASCARF2%0AASPHD1%0AZNF318%0AC17orf58%0APPOX%0APPP1R10%0AZNF497%0AFBXL6%0AZNF71%0ANAA16%0AABCC10%0ASNX33%0APGLYRP1%0AAUTS2%0ATMUB2%0ASP3%0ATMED8%0AQKI%0ACHST7%0AFXYD2%0AKIAA0930%0ABAHCC1%0AMAST1%0ANACC1%0ACLIP2%0ACSNK1D%0AYWHAQ%0ANETO1%0ACLASP1%0AIQSEC1%0AHS6ST1%0ADCHS1%0ACENPK%0AEXOSC3%0ASTUB1%0ACDKN1A%0ALAT%0ASNRNP25%0AU2AF2%0ARASGEF1C%0ABAIAP2L2%0APDE2A%0ASNAI3%0ASGSM3%0AIL31RA%0AFAM222A%0ATUBB2B%0ACCDC85A%0ASHISA7%0AWDR89%0ASIGIRR%0APDE5A%0APCDHA8%0ASDF2L1%0AOGDHL%0ACHRNA4%0ANPR2%0ABCAT2%0AYJEFN3%0ARHCG%0APSMC3IP%0AALDH8A1%0ASPACA6%0AALKBH4%0AMXRA7%0ASIGLEC1%0ACYP2J2%0AADD3%0APDZD4%0ACACNA1B%0AMAIP1%0ASLAIN1%0ASLC25A53%0ARCE1%0ADNAI1%0AARHGEF10L%0ASF3B4%0AITGB1%0APSMD5%0AMPP2%0ASUPT5H%0AADGRA1%0AFAM156B%0ATAS1R3%0ASNCB%0AFOXK1%0ATYW1B%0ATM9SF1%0AMAD2L2%0APEX26%0ASLC12A2%0ATYMP%0AZC3H4%0ATMEM181%0AKRT23%0AMDGA2%0ASETD1B%0AGPBP1L1%0ADPYD%0AFBXW9%0AEPHX4%0ANELFE%0AFAAH%0ANUMBL%0ASTARD7%0ARAB36%0ARBMS1%0ANGRN%0ANADSYN1%0ACYP2B6%0APHYH%0AYY1AP1%0ARTL1%0AGABRB1%0ALENG1%0APRKRIP1%0ANOVA2%0APHYKPL%0ASREBF1%0ALIX1%0AC3orf49%0APHYHIP%0ASELENOK%0ASAMD4B%0AG6PD%0ANARS2%0ACRELD1%0AATG14%0ANAT16%0AC11orf71%0ALPA%0ACACNA1I%0ATMCC1%0APURB%0ACEP350%0ADLG3%0ANAV1%0ACDK10%0ACAPN2%0AMUCL1%0ASPTB%0AKHSRP%0AC7orf50%0AHGH1%0APRR7%0ANAT8L%0ATNRC6C%0AZC3H7B%0ACFAP91%0AMYL6%0ATARS2%0AARHGDIA%0ASNRNP200%0APITPNM3%0AIL5%0AOSBPL2%0ALATS1%0ANPDC1%0APKDCC%0APLA2G4D%0ACPED1%0AENTR1%0ADUSP15%0ABCL9%0ACTPS2%0ASFRP1%0ANPIPB3%0ACNTNAP1%0AARFGAP2%0APGBD1%0ARASAL2%0AEFNB3%0AASMTL%0ANPIPB12%0AFOXG1%0ATTC21B%0AFLYWCH1%0ATGM1%0AZFYVE28%0APCNX3%0AGALNT17%0AKAZN%0APMF1%0ABMP4%0AANKHD1%0ARIMS1%0AERVW-1%0AUBQLN4%0AABCF1%0AZNF592%0AC6orf141%0AMESP1%0ANUDT18%0AMAN2C1%0AERO1A%0APOU6F1%0AARL4C%0ARAP2C%0ACCNE1%0ACPSF1%0AZSCAN25%0AMETAP1D%0ARNF152%0ACCDC157%0ACLVS1%0ATLNRD1%0AHEY2%0ARHOT2%0AMED15%0ABCAT1%0AFRMPD1%0ARIPOR3%0AHSPA1B%0APCDHB10%0ANPHS1%0APNPLA1%0ARAB40C%0APURA%0ALGALS9%0ADNMT3B%0ANT5C2%0ANALF2%0ACDK11A%0ACPEB1%0ADICER1%0AVSIG10L2%0ALRP4%0ASH3D21%0A&ordered=true&all_results=false&no_iea=false&combined=false&measure_underrepresentation=false&domain_scope=annotated&significance_threshold_method=false_discovery_rate&user_threshold=0.05&numeric_namespace=ENTREZGENE_ACC&sources=GO:MF,GO:CC,GO:BP,KEGG,REAC,HPA,CORUM,HP,WP&background=&no_evidences=false)) The settings and information about the query can be found by navigating to the "Query info" tab. 
@@ -503,9 +523,9 @@ citation("GEOquery")
 citation("RSQLite")
 citation("limma")
 citation("org.Hs.eg.db")
-citation('umap')
+citation("umap")
 citation("vegan")
-citation('gprofiler2')
-citation('ggrepel')
+citation("gprofiler2")
+citation("ggrepel")
 ```
 <div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>
