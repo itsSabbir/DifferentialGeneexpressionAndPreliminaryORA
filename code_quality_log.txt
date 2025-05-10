@@ -1,0 +1,523 @@
+--- IMPORTANT: `styler` vs `lintr` ---
+This script uses two tools for code quality:
+1. `styler`: Reformats your code LAYOUT (spacing, indentation, line breaks around operators).
+   It CHANGES your files directly if their layout doesn't match its style guide.
+   If `styler` reports 'File unchanged', its layout was already compliant.
+2. `lintr`: Checks for a WIDER range of style issues (e.g., variable names, commented code),
+   potential bugs, and code complexity. These are often the 'underlines' in your editor.
+   `lintr` DOES NOT automatically change your files. This script WILL let you CONFIGURE `lintr`
+   to ignore specific checks project-wide (via a .lintr file), which can reduce 'underlines'.
+   Otherwise, lintr issues require manual code changes.
+------------------------------------------
+
+Ensuring required packages are installed and loaded...
+Packages checked and loaded.
+
+--- Step 0: Configure Linters for the Project (via .lintr file) ---
+User choice for existing .lintr: 'keep'
+Keeping existing '.lintr' file. Lintr will use its current settings.
+---------------------------------------------
+
+--- Step 1: Styling .R, .r, .Rmd, .rmd files with styler ---
+This reREFORMATS CODE LAYOUT (indentation, spacing) and saves changes directly to files.
+IMPORTANT: Commit any current work to Git BEFORE this script to easily review styler's changes.
+
+Styling .R and .r files...
+Styling  2  files:
+ A2_Sabbir_Hossain_Enhanced.r ✔ 
+ configure_style_lint_repo.R  ℹ 
+────────────────────────────────────────
+Status	Count	Legend 
+✔ 	1	File unchanged.
+ℹ 	1	File changed.
+✖ 	0	Styling threw an error.
+────────────────────────────────────────
+Please review the changes carefully!
+.R/.r files styling attempt complete.
+
+Styling .Rmd and .rmd files...
+Styling  1  files:
+ A2_Sabbir_Hossain.Rmd ✔ 
+────────────────────────────────────────
+Status	Count	Legend 
+✔ 	1	File unchanged.
+ℹ 	0	File changed.
+✖ 	0	Styling threw an error.
+────────────────────────────────────────
+.Rmd/.rmd files styling attempt complete.
+
+Step 1: Styling complete.
+---------------------------------------------
+
+--- Step 2: Linting R/Rmd files with lintr ---
+Using settings from '.lintr' (if it exists and is valid) or lintr defaults.
+`lintr` IDENTIFIES issues; it does NOT change your files. Issues appear in the log below and in your editor.
+
+Found 2 R/Rmd files to lint (excluding this script itself).
+
+Linting file: ./A2_Sabbir_Hossain_Enhanced.r ...
+Found 121 linting issue(s) in A2_Sabbir_Hossain_Enhanced.r .
+  (See full details for these 121 issues below or in the log file if LOG_OUTPUT_TO_FILE is TRUE)
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:8:3: style: [commented_code_linter] Remove commented code.
+# Date: Sys.Date()
+  ^~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:68:5: style: [commented_code_linter] Remove commented code.
+  # library(BiocManager) # Not typically loaded directly after installation
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:73:5: style: [commented_code_linter] Remove commented code.
+  # library(org.Hs.eg.db) # Often used implicitly by AnnotationDbi or explicitly when needed
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:111:1: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+rds_GSE193417_GEO <- file.path(data_dir, "GSE193417_GEOobject.rds")
+^~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:112:1: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+rds_GSE193417_filtered_CPM <- file.path(data_dir, "GSE193417_filtered_CPM.rds")
+^~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:113:1: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+rds_GSE193417_filtered_symbols <- file.path(data_dir, "GSE193417_filtered_symbols.rds")
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:114:1: style: [object_length_linter] Variable and function names should not be longer than 30 characters.
+rds_GSE193417_finalfiltered_symbols <- file.path(data_dir, "GSE193417_finalfiltered_symbols.rds")
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:114:1: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+rds_GSE193417_finalfiltered_symbols <- file.path(data_dir, "GSE193417_finalfiltered_symbols.rds")
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:115:1: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+rds_GSE193417_normalized_CPM <- file.path(data_dir, "GSE193417_normalized_CPM.rds")
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:116:1: style: [object_length_linter] Variable and function names should not be longer than 30 characters.
+rds_GSE193417_normalized_datastruct <- file.path(data_dir, "GSE193417_normalized_datastruct.rds")
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:116:1: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+rds_GSE193417_normalized_datastruct <- file.path(data_dir, "GSE193417_normalized_datastruct.rds")
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:117:1: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+rds_geneIDs <- file.path(data_dir, "GSE193417_geneIDs.rds")
+^~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:124:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  GSE193417_geo_obj_list <- getGEO("GSE193417", GSEMatrix = TRUE, getGPL = FALSE)
+  ^~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:130:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  GSE193417s <- GSE193417_geo_obj_list[[idx]] # This is the ExpressionSet
+  ^~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:135:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  GSE193417s <- readRDS(rds_GSE193417_GEO)
+  ^~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:184:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  mddInMe <- readr::read_tsv(raw_counts_file_path, col_types = readr::cols(.default = "d", Geneid = "c"))
+  ^~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:188:12: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  colnames(mddInMe)[1] <- "Ensembl_ID"
+           ^~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:189:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 131 characters.
+  cat("  Raw counts data ('mddInMe') dimensions (pre-filtering):", dim(mddInMe)[1], "genes,", dim(mddInMe)[2], "samples+ID_col.\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:198:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  filtMddInMe <- mddInMe[keep_genes_filter, ]
+  ^~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:199:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 132 characters.
+  cat("  Filtered counts data ('filtMddInMe') dimensions:", dim(filtMddInMe)[1], "genes,", dim(filtMddInMe)[2], "samples+ID_col.\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:206:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  filtMddInMe <- readRDS(rds_GSE193417_filtered_CPM)
+  ^~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:217:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  geneIDs <- getBM(
+  ^~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:233:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  geneIDs <- readRDS(rds_geneIDs)
+  ^~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:242:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  FinalGeneFilter <- dplyr::inner_join(geneIDs, filtMddInMe, by = c("ensembl_gene_id" = "Ensembl_ID"))
+  ^~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:243:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 133 characters.
+  cat("  Dimensions after inner join ('FinalGeneFilter'):", dim(FinalGeneFilter)[1], "genes,", dim(FinalGeneFilter)[2], "columns.\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:247:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  FinalGeneFilter <- FinalGeneFilter[!(FinalGeneFilter$hgnc_symbol == "" | is.na(FinalGeneFilter$hgnc_symbol)), ]
+  ^~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:248:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 155 characters.
+  cat("  Removed", num_empty_hgnc_before - sum(FinalGeneFilter$hgnc_symbol == "" | is.na(FinalGeneFilter$hgnc_symbol)), "genes with empty HGNC symbols.\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:260:5: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+    FinalGeneFilter$row_mean_expr <- rowMeans(FinalGeneFilter[, sample_cols_start_idx:ncol(FinalGeneFilter)], na.rm = TRUE)
+    ^~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:260:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 123 characters.
+    FinalGeneFilter$row_mean_expr <- rowMeans(FinalGeneFilter[, sample_cols_start_idx:ncol(FinalGeneFilter)], na.rm = TRUE)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:261:5: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+    FinalGeneFilter <- FinalGeneFilter %>%
+    ^~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:266:5: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+    FinalGeneFilter$row_mean_expr <- NULL # Remove temporary column
+    ^~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:271:5: style: [commented_code_linter] Remove commented code.
+  # FinalGeneFilter <- FinalGeneFilter[!(FinalGeneFilter$hgnc_symbol %in% c("STRA6LP", "LINC00856", "POLR2J3", "TBCE")),]
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:271:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 121 characters.
+  # FinalGeneFilter <- FinalGeneFilter[!(FinalGeneFilter$hgnc_symbol %in% c("STRA6LP", "LINC00856", "POLR2J3", "TBCE")),]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:276:5: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+    FinalGeneFilter <- FinalGeneFilter[!duplicated(FinalGeneFilter$ensembl_gene_id), ]
+    ^~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:289:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  FinalGeneFilter <- FinalGeneFilter[keep_after_join, ]
+  ^~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:290:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 123 characters.
+  cat("  Final dimensions of 'FinalGeneFilter':", dim(FinalGeneFilter)[1], "genes,", dim(FinalGeneFilter)[2], "columns.\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:297:5: style: [commented_code_linter] Remove commented code.
+  # testFinalGeneFilter <- FinalGeneFilter
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:299:7: style: [commented_code_linter] Remove commented code.
+  #   testnames <- strsplit((colnames(FinalGeneFilter)[i]), ".bam")
+      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:300:7: style: [commented_code_linter] Remove commented code.
+  #   colnames(testFinalGeneFilter)[i] <- testnames[[1]][1] # Access first element
+      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:303:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  testFinalGeneFilter <- FinalGeneFilter
+  ^~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:311:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 121 characters.
+    # It seems the RMD's `strsplit((colnames(FinalGeneFilter)[i]), ".bam")` was for a different upstream filename format.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:314:7: style: [commented_code_linter] Remove commented code.
+    # new_colnames[i] <- gsub("\\.bam$", "", original_colnames[i])
+      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:315:7: style: [commented_code_linter] Remove commented code.
+    # new_colnames[i] <- gsub("_.*", "", original_colnames[i]) # If more general cleaning needed
+      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:329:12: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  colnames(testFinalGeneFilter) <- new_colnames
+           ^~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:337:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  FinalGeneFilter <- readRDS(rds_GSE193417_filtered_symbols)
+  ^~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:339:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  testFinalGeneFilter <- readRDS(rds_GSE193417_finalfiltered_symbols)
+  ^~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:340:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 133 characters.
+  cat("  Loaded 'testFinalGeneFilter' dimensions:", dim(testFinalGeneFilter)[1], "genes,", dim(testFinalGeneFilter)[2], "columns.\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:376:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 135 characters.
+  cat("  Dimensions of normalized CPM matrix:", dim(normalized_counts_pmil)[1], "genes,", dim(normalized_counts_pmil)[2], "samples.\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:385:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 166 characters.
+  cat("  Final normalized data structure ('normalized_datastruct') dimensions:", dim(normalized_datastruct)[1], "genes,", dim(normalized_datastruct)[2], "columns.\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:394:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 139 characters.
+  cat("  Loaded 'normalized_datastruct' dimensions:", dim(normalized_datastruct)[1], "genes,", dim(normalized_datastruct)[2], "columns.\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:413:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 125 characters.
+  stop("CRITICAL ERROR: Normalized data structure (normalized_datastruct.rds or object) not found. Please re-run Section 1.")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:421:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 127 characters.
+  if (ncol(normalized_datastruct) >= 3) print(summary(normalized_datastruct[[3]])) else print("Not enough columns for summary")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:440:1: style: [object_length_linter] Variable and function names should not be longer than 30 characters.
+sample_column_names_from_norm_data <- colnames(normalized_datastruct)[3:ncol(normalized_datastruct)]
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:519:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 211 characters.
+    rmd_sample_expressions <- c("sgACC_MDD", "sgACC_control", "sgACC_control", "sgACC_control", "sgACC_MDD", "sgACC_MDD", "sgACC_control", "sgACC_control", "sgACC_MDD", "sgACC_control", "sgACC_MDD", "sgACC_MDD")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:520:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 134 characters.
+    rmd_sample_groups <- c("MDD", "control", "control", "control", "MDD", "MDD", "control", "control", "MDD", "control", "MDD", "MDD")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:522:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 124 characters.
+    idx_in_rmd_order <- match(id, sample_ids_for_design) # This assumes sample_ids_for_design is in the RMD's implicit order
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:557:3: style: [commented_code_linter] Remove commented code.
+# design_model <- model.matrix(~ sample_group, data = design_df)
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:598:1: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+ctsDenct <- apply(log2_cpm_for_mds, 2, density)
+^~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:616:11: warning: [seq_linter] Use seq_along(...) instead of 1:length(...), which is likely to be wrong in the empty edge case.
+for (i in 1:length(ctsDenct)) {
+          ^~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:641:1: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+phenoData_for_eset <- AnnotatedDataFrame(data = design_df)
+^~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:661:3: style: [commented_code_linter] Remove commented code.
+# design_model <- model.matrix(~ sample_expression, data = design_df)
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:720:1: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+LFC_threshold <- 1
+^~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:721:1: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+P_adj_threshold <- 0.05 # For stricter significance
+^~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:723:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 133 characters.
+vol_plot_data$diffexpressed[which(vol_plot_data$logFC > LFC_threshold & vol_plot_data$adj.P.Val < P_adj_threshold)] <- "Up Regulated"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:724:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 136 characters.
+vol_plot_data$diffexpressed[which(vol_plot_data$logFC < -LFC_threshold & vol_plot_data$adj.P.Val < P_adj_threshold)] <- "Down Regulated"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:736:3: style: [commented_code_linter] Remove commented code.
+# top_n_to_label <- 10
+  ^~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:737:3: style: [commented_code_linter] Remove commented code.
+# significant_genes_for_labeling <- vol_plot_data[genes_to_label_idx,]
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:738:3: style: [commented_code_linter] Remove commented code.
+# significant_genes_for_labeling <- significant_genes_for_labeling[order(significant_genes_for_labeling$adj.P.Val),]
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:739:3: style: [commented_code_linter] Remove commented code.
+# vol_plot_data$delabel <- NA # Reset
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:741:5: style: [commented_code_linter] Remove commented code.
+#   label_indices_in_vol_plot_data <- match(head(significant_genes_for_labeling$ensembl_gene_id, top_n_to_label), vol_plot_data$ensembl_gene_id)
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:741:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 144 characters.
+#   label_indices_in_vol_plot_data <- match(head(significant_genes_for_labeling$ensembl_gene_id, top_n_to_label), vol_plot_data$ensembl_gene_id)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:742:5: style: [commented_code_linter] Remove commented code.
+#   vol_plot_data$delabel[label_indices_in_vol_plot_data] <- vol_plot_data$hgnc_symbol[label_indices_in_vol_plot_data]
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:749:3: style: [commented_code_linter] Remove commented code.
+# vol_plot$diffexpressed[vol_plot$logFC > 1 & vol_plot$P.Value < 0.05] <- "Up Regulated"
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:750:3: style: [commented_code_linter] Remove commented code.
+# vol_plot$diffexpressed[vol_plot$logFC < -1 & vol_plot$P.Value < 0.05] <- "Down Regulated"
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:755:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 140 characters.
+vol_plot_data_rmd_criteria$diffexpressed[vol_plot_data_rmd_criteria$logFC > 1 & vol_plot_data_rmd_criteria$P.Value < 0.05] <- "Up Regulated"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:756:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 169 characters.
+vol_plot_data_rmd_criteria$diffexpressed[vol_plot_data_rmd_criteria$logFC < -1 & vol_plot_data_rmd_criteria$P.Value < 0.05] <- "Down Regulated" # Corrected from RMD's <1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:758:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 202 characters.
+vol_plot_data_rmd_criteria$delabel[vol_plot_data_rmd_criteria$diffexpressed != "Not Significant"] <- vol_plot_data_rmd_criteria$hgnc_symbol[vol_plot_data_rmd_criteria$diffexpressed != "Not Significant"]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:798:3: style: [commented_code_linter] Remove commented code.
+# RMD: status=output_hits$P.Value < 0.05
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:831:3: style: [commented_code_linter] Remove commented code.
+# RMD: topHitHM <- output_hits$Row.names[output_hits$P.Value < 0.05]
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:836:1: style: [object_length_linter] Variable and function names should not be longer than 30 characters.
+top_de_genes_for_heatmap_ensids <- output_hits$ensembl_gene_id[output_hits$P.Value < 0.05 & !is.na(output_hits$P.Value)]
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:842:3: style: [object_length_linter] Variable and function names should not be longer than 30 characters.
+  top_de_genes_for_heatmap_ensids <- head(top_de_genes_for_heatmap_ensids, 50)
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:853:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 122 characters.
+  hgnc_for_heatmap_genes <- output_hits$hgnc_symbol[match(rownames(heatmap_matrix_data_raw), output_hits$ensembl_gene_id)]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:861:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 130 characters.
+  cat("  Dimensions of matrix for heatmap:", dim(heatmap_matrix_scaled)[1], "genes,", dim(heatmap_matrix_scaled)[2], "samples.\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:865:52: style: [T_and_F_symbol_linter] Use TRUE instead of the symbol T.
+    breaks = c(min(heatmap_matrix_scaled, na.rm = T), 0, max(heatmap_matrix_scaled, na.rm = T)),
+                                                  ~^
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:865:94: style: [T_and_F_symbol_linter] Use TRUE instead of the symbol T.
+    breaks = c(min(heatmap_matrix_scaled, na.rm = T), 0, max(heatmap_matrix_scaled, na.rm = T)),
+                                                                                            ~^
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:923:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 136 characters.
+cat("\nQ1c: Threshold used for 'significantly DE' in Q1b was P.Value < 0.05 (unadjusted), consistent with RMD's initial exploration.\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:935:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 123 characters.
+cat(paste0("\nQ2b: Number of genes passing BH correction (adj.P.Val < ", fdr_threshold, "): ", num_genes_passed_fdr, "\n"))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:952:1: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+ORA_LFC_THRESHOLD <- LFC_threshold # Use same LFC as volcano for consistency, or set new one
+^~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:953:1: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+ORA_ADJP_THRESHOLD <- 0.05
+^~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:957:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 130 characters.
+  which(output_hits$adj.P.Val < ORA_ADJP_THRESHOLD & abs(output_hits$logFC) > ORA_LFC_THRESHOLD & !is.na(output_hits$hgnc_symbol))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:960:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 174 characters.
+cat(paste0("  Number of all significantly DE genes for ORA (adj.P.Val < ", ORA_ADJP_THRESHOLD, ", |logFC| > ", ORA_LFC_THRESHOLD, "): ", length(all_de_genes_ora_hgnc), "\n"))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:964:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 125 characters.
+  which(output_hits$adj.P.Val < ORA_ADJP_THRESHOLD & output_hits$logFC > ORA_LFC_THRESHOLD & !is.na(output_hits$hgnc_symbol))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:971:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 126 characters.
+  which(output_hits$adj.P.Val < ORA_ADJP_THRESHOLD & output_hits$logFC < -ORA_LFC_THRESHOLD & !is.na(output_hits$hgnc_symbol))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:973:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 123 characters.
+down_regulated_ora_hgnc <- unique(down_regulated_ora_hgnc[!is.na(down_regulated_ora_hgnc) & down_regulated_ora_hgnc != ""])
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:977:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 121 characters.
+background_genes_hgnc <- unique(output_hits$hgnc_symbol[!is.na(output_hits$hgnc_symbol) & output_hits$hgnc_symbol != ""])
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:982:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 136 characters.
+all_up_ens_ora <- output_hits$ensembl_gene_id[which(output_hits$adj.P.Val < ORA_ADJP_THRESHOLD & output_hits$logFC > ORA_LFC_THRESHOLD)]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:983:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 139 characters.
+all_down_ens_ora <- output_hits$ensembl_gene_id[which(output_hits$adj.P.Val < ORA_ADJP_THRESHOLD & output_hits$logFC < -ORA_LFC_THRESHOLD)]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:986:3: style: [commented_code_linter] Remove commented code.
+# write.table(all_up_ens_ora, file = file.path(data_dir, "ora_up_regulated_ens.txt"), sep="\n", row.names = FALSE, col.names = FALSE, quote = FALSE)
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:986:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 148 characters.
+# write.table(all_up_ens_ora, file = file.path(data_dir, "ora_up_regulated_ens.txt"), sep="\n", row.names = FALSE, col.names = FALSE, quote = FALSE)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:987:3: style: [commented_code_linter] Remove commented code.
+# write.table(up_regulated_ora_hgnc, file = file.path(data_dir, "ora_up_regulated_hgnc.txt"), sep="\n", row.names = FALSE, col.names = FALSE, quote = FALSE)
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:987:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 156 characters.
+# write.table(up_regulated_ora_hgnc, file = file.path(data_dir, "ora_up_regulated_hgnc.txt"), sep="\n", row.names = FALSE, col.names = FALSE, quote = FALSE)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:988:3: style: [commented_code_linter] Remove commented code.
+# write.table(all_down_ens_ora, file = file.path(data_dir, "ora_down_regulated_ens.txt"), sep="\n", row.names = FALSE, col.names = FALSE, quote = FALSE)
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:988:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 152 characters.
+# write.table(all_down_ens_ora, file = file.path(data_dir, "ora_down_regulated_ens.txt"), sep="\n", row.names = FALSE, col.names = FALSE, quote = FALSE)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:989:3: style: [commented_code_linter] Remove commented code.
+# write.table(down_regulated_ora_hgnc, file = file.path(data_dir, "ora_down_regulated_hgnc.txt"), sep="\n", row.names = FALSE, col.names = FALSE, quote = FALSE)
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:989:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 160 characters.
+# write.table(down_regulated_ora_hgnc, file = file.path(data_dir, "ora_down_regulated_hgnc.txt"), sep="\n", row.names = FALSE, col.names = FALSE, quote = FALSE)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:1096:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 144 characters.
+cat("         Why: g:Profiler is comprehensive, supports many databases, handles multiple testing correction, and allows custom backgrounds.\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:1099:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 178 characters.
+cat("\nQ_ORA_2a: Annotation data sources used: GO (Biological Process, Molecular Function, Cellular Component), KEGG, Reactome, Human Protein Atlas, Human Phenotype Ontology.\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:1100:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 145 characters.
+cat("           Why: These cover a broad range of biological functions, pathways, and cellular locations relevant to gene expression studies.\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:1112:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 132 characters.
+cat("\nQ_ORA_3a: Thresholds for gene selection for ORA: adj.P.Val < ", ORA_ADJP_THRESHOLD, ", |logFC| > ", ORA_LFC_THRESHOLD, ".\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:1116:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 133 characters.
+if (exists("gostres_all_de") && !is.null(gostres_all_de)) cat(nrow(gostres_all_de$result), "\n") else cat("Not run or no results.\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:1118:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 130 characters.
+if (exists("gostres_up_de") && !is.null(gostres_up_de)) cat(nrow(gostres_up_de$result), "\n") else cat("Not run or no results.\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:1120:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 136 characters.
+if (exists("gostres_down_de") && !is.null(gostres_down_de)) cat(nrow(gostres_down_de$result), "\n") else cat("Not run or no results.\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:1129:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 123 characters.
+cat("  Analyzing up/down lists separately can reveal distinct biological processes affected by up- vs. down-regulation.\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:1130:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 123 characters.
+cat("  The 'all DE genes' list might highlight overarching themes or pathways where both up/down regulation contribute.\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:1144:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 169 characters.
+cat("  - Evidence from other publications supporting link between genes, depression, and related pathways (Somatostatin, glial cell density, inflammation/apoptosis).\n")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:1167:3: style: [commented_code_linter] Remove commented code.
+# print_citation_if_loaded("GEOmetadb") # Not directly called in final script, but was in RMD setup
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:1170:3: style: [commented_code_linter] Remove commented code.
+# print_citation_if_loaded("readxl") # Not directly called in final script
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:1175:3: style: [commented_code_linter] Remove commented code.
+# print_citation_if_loaded("BiocManager") # Tool, not analysis package
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:1179:3: style: [commented_code_linter] Remove commented code.
+# print_citation_if_loaded("RSQLite") # Used by GEOmetadb often
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:1180:3: style: [commented_code_linter] Remove commented code.
+# print_citation_if_loaded("org.Hs.eg.db") # Data package
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain_Enhanced.r:1181:3: style: [commented_code_linter] Remove commented code.
+# print_citation_if_loaded("vegan") # Not directly used in this DGE/ORA workflow
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+Linting file: ./A2_Sabbir_Hossain.Rmd ...
+Found 29 linting issue(s) in A2_Sabbir_Hossain.Rmd .
+  (See full details for these 29 issues below or in the log file if LOG_OUTPUT_TO_FILE is TRUE)
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:121:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  GSE193417 <- getGEO("GSE193417", GSEMatrix = TRUE, getGPL = FALSE)
+  ^~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:123:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  GSE193417s <- GSE193417[[idx]]
+  ^~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:126:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  GSE193417 <- readRDS("GSE193417.rds")
+  ^~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:138:1: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+mddInMe <- read.csv(fnames[1], header = TRUE, check.names = FALSE)
+^~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:139:10: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+colnames(mddInMe)[1] <- "EntrezID"
+         ^~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:141:1: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+filtMddInMe <- (mddInMe[rowSums(mddInMe > 1) >= 6, ])
+^~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:149:5: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+    geneIDs <- getBM(
+    ^~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:158:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  unmappedsegsNums <- nrow(filtMddInMe) - nrow(geneIDs)
+  ^~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:162:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  FinalGeneFilter <- dplyr::inner_join(geneIDs, filtMddInMe, by = c("ensembl_gene_id" = "EntrezID"))
+  ^~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:163:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  tempRepeats <- data.frame(table(geneIDs$ensembl_gene_id))
+  ^~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:165:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  FinalGeneFilter <- FinalGeneFilter[!(FinalGeneFilter$hgnc_symbol == "STRA6LP" | FinalGeneFilter$hgnc_symbol == "LINC00856"), ]
+  ^~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:165:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 128 characters.
+  FinalGeneFilter <- FinalGeneFilter[!(FinalGeneFilter$hgnc_symbol == "STRA6LP" | FinalGeneFilter$hgnc_symbol == "LINC00856"), ]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:166:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 256 characters.
+  # And again. The aim is to remove any of the hgnc symbols that mapped to more than one Ensemble IDs. Essentially the Ensemble IDs should be treated as some sort of function. For every 1x, there is exactly 1y to pair with it. Lock and     key so to speak.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:167:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  FinalGeneFilter <- FinalGeneFilter[!(FinalGeneFilter$hgnc_symbol == "POLR2J3" | FinalGeneFilter$hgnc_symbol == "TBCE"), ]
+  ^~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:167:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 123 characters.
+  FinalGeneFilter <- FinalGeneFilter[!(FinalGeneFilter$hgnc_symbol == "POLR2J3" | FinalGeneFilter$hgnc_symbol == "TBCE"), ]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:168:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  goodHGNCboy <- data.frame(table(geneIDs$hgnc_symbol))
+  ^~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:169:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  FinalGeneFilter <- FinalGeneFilter[!(FinalGeneFilter$hgnc_symbol == ""), ]
+  ^~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:171:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  FinalGeneFilter <- FinalGeneFilter[keep, ]
+  ^~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:175:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  testFinalGeneFilter <- FinalGeneFilter
+  ^~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:178:14: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+    colnames(testFinalGeneFilter)[i] <- testnames
+             ^~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:190:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  filtMddInMe <- readRDS("GSE193417_filtered_CPM.rds")
+  ^~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:191:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  FinalGeneFilter <- readRDS("GSE193417_filtered_symbols.rds")
+  ^~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:192:3: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+  testFinalGeneFilter <- readRDS("GSE193417_finalfiltered_symbols.rds")
+  ^~~~~~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:328:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 131 characters.
+# Create a new column "delabel" to vol_plot, that will contain the name of genes differentially expressed (NA in case they are not)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:330:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 135 characters.
+vol_plot$delabel[vol_plot$diffexpressed != "Not Significant"] <- vol_plot$gene.hgnc_symbol[vol_plot$diffexpressed != "Not Significant"]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:352:1: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+topHitHM <- output_hits$Row.names[output_hits$P.Value < 0.05]
+^~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:356:121: style: [line_length_linter] Lines should not be more than 120 characters. This line is 126 characters.
+heatmap_col <- circlize::colorRamp2(c(min(heatmap_matrix_tophits), 0, max(heatmap_matrix_tophits)), c("blue", "white", "red"))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:424:1: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+gostrestp1Up <- gost(all_up, sources = c("GO:BP", "GO:MF", "GO:CC", "KEGG", "HPA", "HP", "REAC"))
+^~~~~~~~~~~~
+C:/Users/hossa/OneDrive/Documents/GitHub/DifferentialGeneexpressionAndPreliminaryORA/A2_Sabbir_Hossain.Rmd:433:1: style: [object_name_linter] Variable and function name style should match snake_case or symbols.
+gostrestp1Down <- gost(all_down, sources = c("GO:BP", "GO:MF", "GO:CC", "KEGG", "HPA", "HP", "REAC"))
+^~~~~~~~~~~~~~
+---
+
+--- Linting Summary ---
+File: A2_Sabbir_Hossain_Enhanced.r - Issues/Status: 121
+File: A2_Sabbir_Hossain.Rmd - Issues/Status: 29
+Total linting issues found across all files (excluding errors): 150
+---------------------------------------------
+
+--- Repository Processing Finished ---
